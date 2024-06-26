@@ -1,5 +1,6 @@
 
-function ReDirectLink() {
+
+const ReDirectLink = () => {
   return (
     <div>ReDirectLink</div>
   )

@@ -1,5 +1,6 @@
 
-function Link() {
+
+const Link = () => {
   return (
     <div>Link</div>
   )

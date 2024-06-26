@@ -1,5 +1,6 @@
 
-function Auth() {
+
+const Auth = () => {
   return (
     <div>Auth</div>
   )
