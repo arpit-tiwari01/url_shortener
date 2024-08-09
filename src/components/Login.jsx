@@ -1,3 +1,4 @@
+import {Input} from "./ui/input";
 import {
   Card,
   CardContent,
@@ -5,16 +6,16 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { BeatLoader } from "react-spinners";
-import Error from "./Error";
-import { useEffect, useState } from "react";
+} from "./ui/card";
+import {Button} from "./ui/button";
+import {useNavigate, useSearchParams} from "react-router-dom";
+import {useEffect, useState} from "react";
 import * as Yup from "yup";
+import Error from "./Error";
+import {login} from "@/db/apiAuth";
+import {BeatLoader} from "react-spinners";
 import useFetch from "@/hooks/useFetch";
-import {login} from "@/db/apiAuth"
-import { useNavigate, useSearchParams } from "react-router-dom";
+import {UrlState} from "@/context";
 
 const Login = () => {
   let [searchParams] = useSearchParams();
@@ -37,11 +38,11 @@ const Login = () => {
   };
 
   const {loading, error, fn: fnLogin, data} = useFetch(login, formData);
-  // const {fetchUser} = UrlState();
+  const {fetchUser} = UrlState();
 
   useEffect(() => {
     if (error === null && data) {
-      // fetchUser();
+      fetchUser();
       navigate(`/dashboard?${longLink ? `createNew=${longLink}` : ""}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
