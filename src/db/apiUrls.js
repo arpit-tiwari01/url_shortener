@@ -1,4 +1,3 @@
-import { UAParser } from "ua-parser-js";
 import supabase, { supabaseUrl } from "./supabase";
 
 export async function getUrls(user_id) {
@@ -84,28 +83,18 @@ export async function getLongUrl(id){
     return data;
 }
 
-const parser = new UAParser();
+export  async function getUrl({id, user_id}){
+  const {data, error} = await supabase
+    .from("urls")
+    .select("*")
+    .eq("id", id)
+    .eq("user_id", user_id)
+    .single();
 
-  const storeCkick = async ({id,original_url}) => {
-  try {
-    const res = parser.getResult();
-    const device = res.type || "desktop";
+    if(error){
+      console.error(error);
+      throw new Error("Unable to load url");
+    }
 
-    const responce = await fetch("https://ipapi.co/json/");
-    const {city, country_name: country} = await responce.json();
-    await supabase.from("clicks").insert([
-      {
-        url_id: id,
-        original_url: original_url,
-        device: device,
-        city: city,
-        country: country,
-      }
-    ]);
-    window.location.href = original_url;
-  } catch (error) {
-    console.error("Store Click Error:", error);
-    throw new Error("Unable to store click");
-    
-  }
-  }
+    return data;
+}
