@@ -17,7 +17,7 @@ export async function getClicksforUrls(urlIds) {
 
 const parser = new UAParser();
 
-  const storeClick = async ({id,original_url}) => {
+  export const storeClick = async ({id,original_url}) => {
   try {
     const res = parser.getResult();
     const device = res.type || "desktop";
@@ -42,17 +42,17 @@ const parser = new UAParser();
   }
 
 
-  export  async function getClicksforUrls({user_id}){
-    const {data, error} = await supabase
-      .from("urls")
-      .select("*")
-      .eq("user_id", user_id)
+  // export  async function getClicksforUrls({user_id}){
+  //   const {data, error} = await supabase
+  //     .from("urls")
+  //     .select("*")
+  //     .eq("user_id", user_id)
       
   
-      if(error){
-        console.error(error);
-        throw new Error("Unable to load urls");
-      }
+  //     if(error){
+  //       console.error(error);
+  //       throw new Error("Unable to load urls");
+  //     }
   
-      return data;
-  }
+  //     return data;
+  // }
